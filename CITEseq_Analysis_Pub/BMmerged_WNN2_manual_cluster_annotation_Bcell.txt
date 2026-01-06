@@ -1,0 +1,22 @@
+Cluster	Specific	Specific2
+0	B cell	Naive B
+1	B cell	Memory B
+10	B cell	Memory B
+11	B cell	Memory B
+12	B cell	Naive B
+13	B cell	Memory B
+14	B cell	Memory B
+15	Differentiating Stem Cell	Differentiating Stem Cell
+16	Differentiating Stem Cell	Differentiating Stem Cell
+17	Differentiating Stem Cell	Differentiating Stem Cell
+18	B cell	Naive B
+19	B cell	Memory B
+2	Plasmablast	Plasmablast
+20	B cell	Memory B
+3	B cell	Memory B
+4	B cell	Memory B
+5	B cell	Memory B
+6	B cell	Memory B
+7	Plasmablast	Plasmablast
+8	B cell	Memory B
+9	Plasmablast	Plasmablast

@@ -1,0 +1,54 @@
+Cluster	Specific	Specific2
+0	Monocyte	Classical Mono
+1	CD34	LMPP
+10	CD34	GMP
+11	CD34	HSC
+12	Monocyte	Classical Mono
+13	Differentiating Stem Cell	Differentiating Stem Cell
+14	CD34	LMPP
+15	CD34	GMP
+16	CD34	LMPP
+17	EPC	EPC
+18	CD34	LMPP
+19	DC	mDC
+2	CD34	HSC
+20	EPC	EPC
+21	CD34	HSC
+22	Differentiating Stem Cell	Differentiating Stem Cell
+23	Monocyte	Classical Mono
+24	Monocyte	Intermediate Mono
+25	DC	mDC
+26	EPC	EPC
+27	CD34	MEP
+28	CD34	MEP
+29	CD34	LMPP
+3	EPC	EPC
+30	CD34	MEP
+31	EPC	EPC
+32	Monocyte	Non-classical Mono
+33	CD34	HSC
+34	EPC	EPC
+35	Neutrophil	Neutrophil
+36	CD34	LMPP
+37	CD34	MEP
+38	CD34	MEP
+39	Monocyte	GMP
+4	EPC	EPC
+40	CD34	LMPP
+41	Monocyte	Classical Mono
+42	EPC	EPC
+43	DC	pDC
+44	Monocyte	GMP
+45	DC	pDC
+46	Differentiating Stem Cell	Differentiating Stem Cell
+47	EPC	EPC
+48	Monocyte	Classical Mono
+49	Differentiating Stem Cell	Differentiating Stem Cell
+5	Monocyte	GMP
+50	CD34	LMPP
+51	Monocyte	Classical Mono
+52	Stromal	Stromal
+6	CD34	LMPP
+7	Monocyte	Classical Mono
+8	EPC	EPC
+9	CD34	LMPP

@@ -1,0 +1,95 @@
+Cluster	Broad	Broad2
+0	T & NK	CD4
+1	T & NK	CD4
+10	CD34	CD34
+11	T & NK	NK
+12	T & NK	CD4
+13	T & NK	CD8
+14	Myeloid	Myeloid
+15	T & NK	CD8
+16	T & NK	CD4
+17	T & NK	CD8
+18	RemoveArtifact	RemoveArtifact
+19	CD34	CD34
+2	T & NK	CD8
+20	T & NK	CD4
+21	Myeloid	Myeloid
+22	T & NK	MAIT
+23	CD34	CD34
+24	T & NK	CD4
+25	T & NK	CD4
+26	T & NK	CD4
+27	T & NK	CD4
+28	T & NK	gdT
+29	T & NK	CD8
+3	B cell	B cell
+30	CD34	CD34
+31	EPC	EPC
+32	T & NK	CD4
+33	Myeloid	Myeloid
+34	T & NK	NK
+35	T & NK	CD4
+36	T & NK	CD4
+37	T & NK	NK
+38	B cell	Plasmablast
+39	T & NK	CD4
+4	CD34	CD34
+40	EPC	EPC
+41	Myeloid	Myeloid
+42	T & NK	CD8
+43	CD34	CD34
+44	T & NK	CD8
+45	B cell	B cell
+46	T & NK	CD8
+47	T & NK	NK
+48	CD34	CD34
+49	CD34	CD34
+5	T & NK	NK
+50	Neutrophil	Neutrophil
+51	T & NK	CD4
+52	CD34	CD34
+53	CD34	CD34
+54	T & NK	CD4
+55	RemoveArtifact	RemoveArtifact
+56	T & NK	CD4
+57	T & NK	CD4
+58	T & NK	CD4
+59	T & NK	CD4
+6	T & NK	CD8
+60	T & NK	NK
+61	RemoveArtifact	RemoveArtifact
+62	T & NK	CD4
+63	T & NK	CD8
+64	RemoveArtifact	RemoveArtifact
+65	CD34	CD34
+66	B cell	B cell
+67	B cell	Plasmablast
+68	CD34	CD34
+69	Megakaryocyte	Megakaryocyte
+7	Myeloid	Myeloid
+70	RemoveArtifact	RemoveArtifact
+71	EPC	EPC
+72	T & NK	CD8
+73	EPC	EPC
+74	T & NK	CD4
+75	Myeloid	Myeloid
+76	T & NK	CD4
+77	Myeloid	Myeloid
+78	CD34	CD34
+79	CD34	CD34
+8	EPC	EPC
+80	B cell	B cell
+81	T & NK	CD4
+82	CD34	CD34
+83	T & NK	gdT
+84	B cell	B cell
+85	T & NK	CD4
+86	T & NK	CD4
+87	T & NK	CD8
+88	T & NK	CD4
+89	T & NK	CD8
+9	T & NK	CD4
+90	T & NK	NK
+91	RemoveArtifact	RemoveArtifact
+92	T & NK	NK
+93	T & NK	NK
