@@ -1371,6 +1371,47 @@ cc<-ggplot(t2_PBMC_diff, aes(y = Var1, x = Patient, fill = percentage.1))+geom_t
 multiplot(aa,bb,cc, cols = 3)
 
 
+############### COMPARE CITE-SEQ ANNOTATION WITH ORTHOGONAL BM FACS EXPERIMENT #############
+t_FACS <- t[t$Patient %in% c(119325,119837,121015,121535,122976) & t$Time2 == "Pre" & t$SampleType == "BM",]
+#specific annotation
+t_FACS_specific <- t_FACS
+t_FACS_specific$Var1 <- as.character(t_FACS_specific$Var1)
+t_FACS_specific[t_FACS_specific$Var1 == "Monocyte",]$Var1 <- "Myeloid"
+t_FACS_specific[t_FACS_specific$Var1 == "DC",]$Var1 <- "Myeloid"
+t_FACS_specific[t_FACS_specific$Var1 == "Plasmablast",]$Var1 <- "B cell"
+t_FACS_specific[t_FACS_specific$Var1 == "MAIT",]$Var1 <- "Others"
+t_FACS_specific[t_FACS_specific$Var1 == "EPC",]$Var1 <- "Others"
+t_FACS_specific[t_FACS_specific$Var1 == "Differentiating Stem Cell",]$Var1 <- "Others"
+t_FACS_specific[t_FACS_specific$Var1 == "Stromal",]$Var1 <- "Others"
+t_FACS_specific[t_FACS_specific$Var1 == "Neutrophil",]$Var1 <- "Others"
+t_FACS_specific[t_FACS_specific$Var1 == "Megakaryocyte",]$Var1 <- "Others"
+
+t_FACS_specific_agg <- aggregate(Freq ~ Var1 + Patient + TotalCells, t_FACS_specific[,c(1,2,3,5)], FUN = sum)
+t_FACS_specific_agg$percentage <- round(t_FACS_specific_agg$Freq/t_FACS_specific_agg$TotalCells,2)
+t_FACS_specific_agg$Var1 <- factor(t_FACS_specific_agg$Var1,levels = c("CD34","Myeloid", "B cell","gdT", "CD4", "CD8","NK","Others"))
+t_FACS_specific_agg$Patient <- factor(t_FACS_specific_agg$Patient,levels = c("122976","121535", "121015","119837", "119325"))
+
+
+p1<-ggplot(t_FACS_specific_agg, aes(x=Patient, y=percentage, fill=Var1)) +geom_bar(stat="identity",colour = "black", position="stack")+ggtitle("CITE-seq BM Immune Composition")+theme(plot.title = element_text(hjust = 0.5, face = "bold",size = 16), axis.title=element_text(size=12,face = "bold"),axis.text.x = element_text(face = "bold",size = 12),axis.text.y = element_text(face = "bold",size = 12))+ theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
+  labs(x = "Patient Samples", y = "Frequency")+scale_fill_manual(values = c('#ff0000', '#ffe700', '#6565bf', '#e7b416',"#99cc33",'#02a9f7','orange','lightgrey'))+ theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) + theme(panel.background = element_rect(fill = 'white',colour = 'black'))+ theme(legend.title=element_text(size=16,face = "bold"),legend.text=element_text(size=12,face = "bold"))
+p1
+
+FACS_specific <- read.table("2026-01-09_MDS_NewGating_Counts.txt", sep = "\t", header = T, stringsAsFactors = F)
+FACS_specific <- FACS_specific[c(1:5),c(1,4:14)]
+colnames(FACS_specific) <- c("Patient", "TotalCells","CD34","EPC","Myeloid", "NK", "CD11bnegCD56neg","gdT","CD4","CD8","NKT-like", "B cell")
+FACS_specific$Others <- FACS_specific$TotalCells-(rowSums(FACS_specific[,c(3,5,6,8,9,10,12)])) #include CD11bnegCD56neg and EPC and NKT-like in Others
+FACS_specific <- FACS_specific[,c(1:3,5,6,8,9,10,12,13)]
+FACS_specific<-reshape2::melt(FACS_specific, id = c("Patient","TotalCells"))
+FACS_specific$percentage <- round(FACS_specific$value/FACS_specific$TotalCells,2)
+FACS_specific$variable <- factor(FACS_specific$variable,levels =  c("CD34","Myeloid", "B cell","gdT", "CD4", "CD8","NK","Others"))
+FACS_specific$Patient <- factor(FACS_specific$Patient,levels = c("122976.fcs","121535.fcs", "121015.fcs","119837.fcs", "119325.fcs"))
+
+pp1<-ggplot(FACS_specific, aes(x=Patient, y=percentage, fill=variable)) +geom_bar(stat="identity",colour = "black", position="stack")+ggtitle("CITE-seq BM Immune Composition")+theme(plot.title = element_text(hjust = 0.5, face = "bold",size = 16), axis.title=element_text(size=12,face = "bold"),axis.text.x = element_text(face = "bold",size = 12),axis.text.y = element_text(face = "bold",size = 12))+ theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
+  labs(x = "Patient Samples", y = "Frequency")+scale_fill_manual(values = c('#ff0000', '#ffe700', '#6565bf', '#e7b416',"#99cc33",'#02a9f7','orange','lightgrey'))+ theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) + theme(panel.background = element_rect(fill = 'white',colour = 'black'))+ theme(legend.title=element_text(size=16,face = "bold"),legend.text=element_text(size=12,face = "bold"))
+pp1
+
+multiplot(p1,pp1,cols = 2)             
+
 
 ##### PERFORM WELCH T-TEST FOR DIFFERENTIAL ABUNDANCE ##################
 #Short_Pre vs Short_Post
