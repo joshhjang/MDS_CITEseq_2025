@@ -514,6 +514,7 @@ DEG_comp <- res_Short_scr_4_paired
 DEG_comp <- res_Long_scr_4_paired
 
 #iterate through each comparison for each pathways and save data below.
+
 df <- data.frame(DEG_comp)
 df$row <- rownames(DEG_comp)
 df$Gene.name<- apply(df,1,function(x) {unlist(strsplit(x[7],"\\|"))[2]})
@@ -524,7 +525,7 @@ df2 <- df %>%
   group_by(Gene.name) %>% 
   dplyr::summarize(stat=mean(stat))
 
-ranks <- deframe(df2)
+ranks <- tibble::deframe(df2)
 
 fgseaRes <- fgseaMultilevel(pathways=pathways.hallmark, stats=ranks)
 
@@ -538,58 +539,35 @@ fgseaResTidy %>%
   arrange(padj) %>% 
   DT::datatable()
 
-dataplot <- fgseaResTidy[fgseaResTidy$padj <0.01,]
-dataplot_pos <- dataplot[dataplot$NES > 0,]
-dataplot_pos <- dataplot_pos[order(dataplot_pos$padj,-(dataplot_pos$NES)),]
-dataplot_pos <- dataplot_pos[c(1:15),]
-dataplot_neg <- dataplot[dataplot$NES < 0,]
-dataplot_neg <- dataplot_neg[order(dataplot_neg$padj,dataplot_neg$NES),]
-dataplot_neg <- dataplot_neg[c(1:15),]
-dataplot_top15 <- rbind(dataplot_pos,dataplot_neg)
-dataplot_top15 <-dataplot_top15 %>% filter(!is.na(pathway))
-
-ggplot(dataplot_top15, aes(reorder(pathway, NES), NES)) +
-  geom_col(aes(fill=padj)) +
-  coord_flip() +
-  labs(x="Pathway", y="Normalized Enrichment Score",
-       title="Top 10 pathways NES from GSEA (p <0.01)") + 
-  theme_minimal()
-
-genelist<-pathways.hallmark %>% 
-  enframe("pathway", "Gene.name") %>% 
-  na.omit() %>% 
-  unnest(cols = c(Gene.name)) %>% 
-  inner_join(df, by="Gene.name")
-genelist<-na.omit(genelist)
 
 
 plotEnrichment(pathways.hallmark[["SenMayo"]],stats=ranks)
 
 #save results after running code above
-res_Short_scr_HALLMARK <-data.frame(dataplot_top15)
-res_Short_scr_GO <-data.frame(dataplot_top15)
+res_Short_scr_HALLMARK <-data.frame(dataplot)
+res_Short_scr_GO <-data.frame(dataplot)
 res_Short_scr_SENMAYO <- fgseaResTidy
 
-res_ShortvsLong_2_HALLMARK <-data.frame(dataplot_top15 )
-res_ShortvsLong_2_GO <-data.frame(dataplot_top15 )
+res_ShortvsLong_2_HALLMARK <-data.frame(dataplot )
+res_ShortvsLong_2_GO <-data.frame(dataplot )
 res_ShortvsLong_2_SENMAYO <- fgseaResTidy
 
-res_ShortvsLong_4_HALLMARK <-data.frame(dataplot_top15 )
-res_ShortvsLong_4_GO <-data.frame(dataplot_top15 )
+res_ShortvsLong_4_HALLMARK <-data.frame(dataplot )
+res_ShortvsLong_4_GO <-data.frame(dataplot )
 
-res_Short_scr_2_paired_HALLMARK <-data.frame(dataplot_top15)
-res_Short_scr_2_paired_GO <-data.frame(dataplot_top15 )
+res_Short_scr_2_paired_HALLMARK <-data.frame(dataplot)
+res_Short_scr_2_paired_GO <-data.frame(dataplot )
 
-res_Long_scr_2_paired_HALLMARK <-data.frame(dataplot_top15 )
-res_Long_scr_2_paired_GO <-data.frame(dataplot_top15 )
-
-
-res_Short_scr_4_paired_HALLMARK <-data.frame(dataplot_top15)
-res_Short_scr_4_paired_GO <-data.frame(dataplot_top15 )
+res_Long_scr_2_paired_HALLMARK <-data.frame(dataplot )
+res_Long_scr_2_paired_GO <-data.frame(dataplot )
 
 
-res_Long_scr_4_paired_HALLMARK <-data.frame(dataplot_top15 )
-res_Long_scr_4_paired_GO <-data.frame(dataplot_top15 )
+res_Short_scr_4_paired_HALLMARK <-data.frame(dataplot)
+res_Short_scr_4_paired_GO <-data.frame(dataplot )
+
+
+res_Long_scr_4_paired_HALLMARK <-data.frame(dataplot )
+res_Long_scr_4_paired_GO <-data.frame(dataplot )
 
 
 
@@ -636,8 +614,8 @@ df.R2[is.na(df.R2)]<-1
 df.R2$pathway_simple <- apply(df.R2,1,function(x){unlist(strsplit(x[1],"MARK_"))[2]})
 df.R2[,c(2:8)]<- -log(df.R2[,c(2:8)])
 
-df.R_M <- melt(df.R[,c(9,2:8)])
-df.R2_M <- melt(df.R2[,c(9,2:8)])
+df.R_M <- reshape2::melt(df.R[,c(9,2:8)])
+df.R2_M <- reshape2::melt(df.R2[,c(9,2:8)])
 df.R3_M <- merge(df.R_M,df.R2_M, by= c("pathway_simple","variable"))
 
 df.R3_M$variable <- factor(df.R3_M$variable, levels = c("All_ShortSc_LongSc","All_Short2_Long2","All_Short4_Long4","All_ShortSc_Short2","All_ShortSc_Short4","All_LongSc_Long2","All_LongSc_Long4"))  
@@ -649,11 +627,17 @@ ggplot(df.R3_M, aes(x=variable, y = pathway_simple, color = value.x, size = valu
   ylab('') +
   theme(axis.ticks = element_blank()) 
 
+ggplot(df.R3_M, aes(x=variable, y = pathway_simple, color = value.x, size = value.y)) + 
+  geom_point() + 
+  scale_color_gradient2(low = "#E2B8D6", high = "#5f5e60") + 
+  cowplot::theme_cowplot() + 
+  theme(axis.line  = element_blank()) +
+  ylab('') +
+  theme(axis.ticks = element_blank()) 
 
 
 
-
-##Combine GSEA GO, Take Top 15 GO NES
+##Combine GSEA GO NES
 df.R<-data.frame(unique(c(res_Short_scr_GO[order(res_Short_scr_GO $NES),]$pathway,
                           res_ShortvsLong_2_GO[order(res_ShortvsLong_2_GO $NES),]$pathway,
                           res_ShortvsLong_4_GO[order(res_ShortvsLong_4_GO $NES),]$pathway,
@@ -672,13 +656,6 @@ df.R<- merge(df.R,res_Long_scr_4_paired_GO[,c("pathway","NES")],by="pathway", al
 colnames(df.R)<-c("pathway","All_ShortSc_LongSc","All_Short2_Long2","All_Short4_Long4","All_ShortSc_Short2","All_ShortSc_Short4","All_LongSc_Long2","All_LongSc_Long4")
 df.R[is.na(df.R)]<-0
 df.R$pathway_simple <- apply(df.R,1,function(x){unlist(strsplit(x[1],"GO_"))[2]})
-
-name <- df.R$pathway_simple
-df.OG2 <- data.matrix(df.R[,2:8])
-row.names(df.OG2) <- name
-colnames(df.OG2) <- colnames(df.R[,2:8])
-pheatmap(df.OG2,clustering_method = "ward.D2", color = colorRampPalette((brewer.pal(n = 5, name = "BrBG")))(100),breaks = c(seq(-2.5,2.5,by=0.05)),cluster_rows =T, cluster_cols=F)
-pheatmap(df.OG2, color = colorRampPalette(c("#673888","white","#e8702a"))(100),breaks = c(seq(-2.5,2.5,by=0.05)),cluster_rows =F, cluster_cols=F)
 
 
 df.R2<-data.frame(unique(c(res_Short_scr_GO[order(res_Short_scr_GO $padj),]$pathway,
@@ -708,7 +685,7 @@ df.R3_M <- merge(df.R_M,df.R2_M, by= c("pathway_simple","variable"))
 df.R3_M$variable <- factor(df.R3_M$variable, levels = c("All_ShortSc_LongSc","All_Short2_Long2","All_Short4_Long4","All_ShortSc_Short2","All_ShortSc_Short4","All_LongSc_Long2","All_LongSc_Long4"))  
 ggplot(df.R3_M[grep("EXTRACELLULAR_MATRIX",df.R3_M$pathway_simple),], aes(x=variable, y = pathway_simple, color = value.x, size = value.y)) + 
   geom_point() + 
-  scale_color_gradientn(colours =rev(c(brewer.pal(n = 5, name = "PuOr"))),limits=c(-2.5,2.5),) + 
+  scale_color_gradientn(colours =rev(c(brewer.pal(n = 5, name = "PuOr"))),limits=c(-3,3),) + 
   cowplot::theme_cowplot() + 
   theme(axis.line  = element_blank()) +
   ylab('') +
@@ -716,14 +693,13 @@ ggplot(df.R3_M[grep("EXTRACELLULAR_MATRIX",df.R3_M$pathway_simple),], aes(x=vari
 
 
 
-
-ggplot(df.R, aes(x=variable, y = pathway, color = value.x, size = value.y)) + 
+ggplot(df.R3_M[grep("EXTRACELLULAR_MATRIX",df.R3_M$pathway_simple),], aes(x=variable, y = pathway_simple, color = value.x, size = value.y)) + 
   geom_point() + 
-  scale_color_gradientn(colours =c(brewer.pal(n = 5, name = "PuOr"))) + 
+  scale_color_gradient2(low = "#E2B8D6", high = "#5f5e60", limits=c(-3,3)) + 
   cowplot::theme_cowplot() + 
   theme(axis.line  = element_blank()) +
   ylab('') +
-  theme(axis.ticks = element_blank()) 
+  theme(axis.ticks = element_blank()) #ECM related GO only
 
 
 
