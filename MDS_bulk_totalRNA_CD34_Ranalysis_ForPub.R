@@ -993,7 +993,7 @@ MDS_ICG_melt$SubjectID <- factor(MDS_ICG_melt$SubjectID, levels = c(unique(as.ch
 a<-ggplot(MDS_ICG_melt[MDS_ICG_melt$Time2 == "Scr",], aes(x=Survival, y=normCounts)) +
   geom_boxplot(aes(fill=Survival),position = position_dodge(0.9),)+geom_point(aes(y=normCounts,fill=Survival), size=3,pch=21) +ggtitle("Immune Checkpoint Genes (Screening)")+
   theme(plot.title = element_text(hjust = 0.5, face = "bold",size = 14), axis.title=element_text(size=12,face = "bold"),axis.text.x = element_text(face = "bold",size = 12),axis.text.y = element_text(face = "bold",size = 12))+ theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
-  scale_fill_manual(values = c("white","grey","#c5a5f3"))+labs(x = "Sample", y = "normCounts")+theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())  + theme(panel.background = element_rect(fill = 'white',colour = 'black'))+ theme(legend.position="none")
+  scale_fill_manual(values = c("white","grey","#E2B8D6"))+labs(x = "Sample", y = "normCounts")+theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())  + theme(panel.background = element_rect(fill = 'white',colour = 'black'))+ theme(legend.position="none")
 a+ facet_wrap( ~ Gene, scales="free",ncol=10)
 
 
@@ -1121,11 +1121,11 @@ means_LINE <-merge(meta,means_LINE, by="Sample")
 a<-ggplot(means_LTR, aes(x=Survival, y=log2(TotalCPM))) +
   geom_boxplot(aes(fill=Survival),position = position_dodge(0.9),)+geom_point(aes(y=log2(TotalCPM), fill=Survival), size=3,pch=21) +ggtitle("Average Intergenic LTR expression Distribution\nin Screening Samples (log2(CPM))")+
   theme(plot.title = element_text(hjust = 0.5, face = "bold",size = 14), axis.title=element_text(size=12,face = "bold"),axis.text.x = element_text(face = "bold",size = 12),axis.text.y = element_text(face = "bold",size = 12))+ theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
-  scale_fill_manual(values = c("white","grey","#c5a5f3","black","grey","#c5a5f3"))+labs(x = "Sample", y = "log2 (Ave CPM)")+theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())  + theme(panel.background = element_rect(fill = 'white',colour = 'black'))+ theme(legend.position="none")
+  scale_fill_manual(values = c("white","grey","#E2B8D6","black","grey","#E2B8D6"))+labs(x = "Sample", y = "log2 (Ave CPM)")+theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())  + theme(panel.background = element_rect(fill = 'white',colour = 'black'))+ theme(legend.position="none")
 b<-ggplot(means_LINE, aes(x=Survival, y=log2(TotalCPM))) +
   geom_boxplot(aes(fill=Survival),position = position_dodge(0.9),)+geom_point(aes(y=log2(TotalCPM),fill=Survival), size=3,pch=21) +ggtitle("Average Intergenic LINE expression Distribution\nin Screening Samples (log2(CPM))")+
   theme(plot.title = element_text(hjust = 0.5, face = "bold",size = 14), axis.title=element_text(size=12,face = "bold"),axis.text.x = element_text(face = "bold",size = 12),axis.text.y = element_text(face = "bold",size = 12))+ theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
-  scale_fill_manual(values = c("white","grey","#c5a5f3","black","grey","#c5a5f3"))+labs(x = "Sample", y = "log2 (Ave CPM)")+theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())  + theme(panel.background = element_rect(fill = 'white',colour = 'black'))+ theme(legend.position="none")
+  scale_fill_manual(values = c("white","grey","#E2B8D6","black","grey","#E2B8D6"))+labs(x = "Sample", y = "log2 (Ave CPM)")+theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())  + theme(panel.background = element_rect(fill = 'white',colour = 'black'))+ theme(legend.position="none")
 
 multiplot(a,b,cols=1)
 
@@ -1185,11 +1185,11 @@ means_LINE_paired$SubjectID <- factor(means_LINE_paired$SubjectID, levels =c(uni
 a<-ggplot(means_LTR_paired, aes(x=SurvivalTime, y=log2(TotalCPM))) +
   geom_boxplot(aes(fill=Survival),position = position_dodge(0.9),)+geom_point(aes(y=log2(TotalCPM),fill=SubjectID), size=4,pch=21) +ggtitle("Average Intergenic LTR expression Distribution (log2(CPM))")+
   theme(plot.title = element_text(hjust = 0.5, face = "bold",size = 14), axis.title=element_text(size=12,face = "bold"),axis.text.x = element_text(face = "bold",size = 12),axis.text.y = element_text(face = "bold",size = 12))+ theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
-  scale_color_manual(values = c("white","grey","#c5a5f3","black","black","black","black","black","black","black","black",mypalette,mypalette2))+scale_fill_manual(values = c("white","grey","#c5a5f3","black","black","black","black","black","black","black","black",mypalette,mypalette2))+labs(x = "Sample", y = "log2 (Ave CPM)")+theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())  + theme(panel.background = element_rect(fill = 'white',colour = 'black'))
+  scale_color_manual(values = c("white","grey","#E2B8D6","black","black","black","black","black","black","black","black",mypalette,mypalette2))+scale_fill_manual(values = c("white","grey","#E2B8D6","black","black","black","black","black","black","black","black",mypalette,mypalette2))+labs(x = "Sample", y = "log2 (Ave CPM)")+theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())  + theme(panel.background = element_rect(fill = 'white',colour = 'black'))
 b<-ggplot(means_LINE_paired, aes(x=SurvivalTime, y=log2(TotalCPM))) +
   geom_boxplot(aes(fill=Survival),position = position_dodge(0.9),)+geom_point(aes(y=log2(TotalCPM),fill=SubjectID), size=4,pch=21) +ggtitle("Average Intergenic LINE expression Distribution (log2(CPM))")+
   theme(plot.title = element_text(hjust = 0.5, face = "bold",size = 14), axis.title=element_text(size=12,face = "bold"),axis.text.x = element_text(face = "bold",size = 12),axis.text.y = element_text(face = "bold",size = 12))+ theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
-  scale_color_manual(values = c("white","grey","#c5a5f3","black","black","black","black","black","black","black","black",mypalette,mypalette2))+scale_fill_manual(values = c("white","grey","#c5a5f3","black","black","black","black","black","black","black","black",mypalette,mypalette2))+labs(x = "Sample", y = "log2 (Ave CPM)")+theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())  + theme(panel.background = element_rect(fill = 'white',colour = 'black'))
+  scale_color_manual(values = c("white","grey","#E2B8D6","black","black","black","black","black","black","black","black",mypalette,mypalette2))+scale_fill_manual(values = c("white","grey","#E2B8D6","black","black","black","black","black","black","black","black",mypalette,mypalette2))+labs(x = "Sample", y = "log2 (Ave CPM)")+theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())  + theme(panel.background = element_rect(fill = 'white',colour = 'black'))
 
 multiplot(a,b, cols =1)
 
