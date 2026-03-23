@@ -3048,6 +3048,15 @@ ggplot(df.R3_M, aes(x=variable, y = pathway_simple, color = value.x, size = valu
   theme(axis.ticks = element_blank()) 
 
 
+ggplot(df.R3_M, aes(x=variable, y = pathway_simple, color = value.x, size = value.y)) + 
+  geom_point() + 
+  scale_color_gradient2(low = "#E2B8D6", high = "#5f5e60",limits=c(-4,4)) + 
+  cowplot::theme_cowplot() + 
+  theme(axis.line  = element_blank()) +
+  ylab('') +
+  theme(axis.ticks = element_blank()) #for STS vs LTS comparison
+
+
 ######## SPECIFIC ANNO DESEQ2 PSEUDO GSEA ###
 
 #Short Pretreatment vs Short Posttreatment
@@ -3160,11 +3169,11 @@ df.R3_M <- merge(df.R_M,df.R2_M, by= c("pathway_simple","variable"))
 df.R3_M$variable <- factor(df.R3_M$variable, levels = c("EPC","MEP","HSC","LMPP","Memory B","CD56dim NK", "Vd1 gdT","CD4 Naive","CD4 TCM","CD4 Treg","CD8 TCM","CD8 TEMRA"))
 ggplot(df.R3_M, aes(x=variable, y = pathway_simple, color = value.x, size = value.y)) + 
   geom_point() + 
-  scale_color_gradientn(colours =rev(c(brewer.pal(n = 5, name = "PuOr"))),limits=c(-4,4)) + 
+  scale_color_gradient2(low = "#E2B8D6", high = "#5f5e60",limits=c(-4,4)) + 
   cowplot::theme_cowplot() + 
   theme(axis.line  = element_blank()) +
   ylab('') +
-  theme(axis.ticks = element_blank()) 
+  theme(axis.ticks = element_blank()) #for STS vs LTS comparison
 
 
 
@@ -3199,11 +3208,11 @@ df.R3_M <- merge(df.R_M,df.R2_M, by= c("pathway_simple","variable"))
 df.R3_M$variable <- factor(df.R3_M$variable, levels = c("EPC","MEP","HSC","LMPP","Memory B","CD56dim NK", "Vd1 gdT","CD4 Naive","CD4 TCM","CD4 Treg","CD8 TCM", "CD8 TEM","CD8 TEMRA"))
 ggplot(df.R3_M, aes(x=variable, y = pathway_simple, color = value.x, size = value.y)) + 
   geom_point() + 
-  scale_color_gradientn(colours =rev(c(brewer.pal(n = 5, name = "PuOr"))),limits=c(-4,4)) + 
+  scale_color_gradient2(low = "#E2B8D6", high = "#5f5e60",limits=c(-4,4)) + 
   cowplot::theme_cowplot() + 
   theme(axis.line  = element_blank()) +
   ylab('') +
-  theme(axis.ticks = element_blank()) 
+  theme(axis.ticks = element_blank()) #for STS vs LTS comparison
 
 
 
